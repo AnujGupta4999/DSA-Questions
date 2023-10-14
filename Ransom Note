@@ -1,0 +1,27 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+     String ransomNote1 = ransomNote.toLowerCase();
+      String magazine1 = magazine.toLowerCase();
+
+  if (ransomNote1.length() > magazine1.length()) {
+    return false;
+  }
+
+  Map<Character, Integer> map = new HashMap<>();
+  for (int i = 0; i < magazine1.length(); i++) {
+    map.put(magazine1.charAt(i), map.getOrDefault(magazine1.charAt(i), 0) + 1);
+  }
+
+  for (int i = 0; i < ransomNote1.length(); i++) {
+    map.put(ransomNote1.charAt(i), map.getOrDefault(ransomNote1.charAt(i), 0) - 1);
+  }
+
+  for (int i = 0; i < ransomNote1.length(); i++) {
+    if (map.getOrDefault(ransomNote1.charAt(i), 0) < 0) {
+      return false;
+    }
+  }
+
+  return true; 
+    }
+}
