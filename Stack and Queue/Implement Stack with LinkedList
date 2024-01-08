@@ -1,0 +1,54 @@
+//coding ninja
+
+public class Solution {
+    static class Stack {
+             Node head;
+             int size;
+        Stack()
+        {
+            this.head = null;
+            this.size=0;
+        }
+
+        int getSize()
+        {
+            return size;
+
+        }
+
+        boolean isEmpty()
+        {
+            return head==null;
+        }
+
+        void push(int data)
+        {
+            Node newNode = new Node(data);
+            if(isEmpty()){
+                head = newNode;
+                size++;
+            }else{
+                newNode.next = head;
+                head = newNode;
+                size++;
+            }
+        }
+
+        void pop()
+        {
+            if(!isEmpty()){
+                head = head.next;
+                size--;
+            }
+        }
+
+        int getTop()
+        {
+            if(!isEmpty()){
+                return head.data;
+            }else{
+                return -1;
+            }
+        }
+    }
+}
