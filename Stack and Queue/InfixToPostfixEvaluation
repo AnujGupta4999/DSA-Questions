@@ -1,0 +1,58 @@
+//coding ninja
+import java.util.*;
+
+public class Solution {
+
+    public static String infixToPostfix(String exp) {
+        Stack<Character> stack = new Stack<>();
+        StringBuilder postfixExp = new StringBuilder();
+
+        for (char c : exp.toCharArray()) {
+            if (Character.isLetterOrDigit(c)) {
+                postfixExp.append(c);
+            } else if (c == '(') {
+                stack.push(c);
+            } else if (c == ')') {
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    postfixExp.append(stack.pop());
+                }
+                // Handle potential error: Mismatched parentheses
+                if (stack.isEmpty()) {
+                    throw new IllegalArgumentException("Invalid expression: Mismatched parentheses");
+                }
+                stack.pop(); // Remove the '('
+            } else {
+                while (!stack.isEmpty() && getPrecedence(c) <= getPrecedence(stack.peek())) {
+                    postfixExp.append(stack.pop());
+                }
+                stack.push(c);
+            }
+        }
+
+        // Append any remaining operators from the stack
+        while (!stack.isEmpty()) {
+            // Handle potential error: Empty stack in peek()/pop()
+            if (stack.size() == 1 && stack.peek() == '(') {
+                throw new IllegalArgumentException("Invalid expression: Mismatched parentheses");
+            }
+            postfixExp.append(stack.pop());
+        }
+
+        return postfixExp.toString();
+    }
+
+    private static int getPrecedence(char c) {
+        switch (c) {
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            case '^':
+                return 3;
+            default:
+                return 0;
+        }
+    }
+}
