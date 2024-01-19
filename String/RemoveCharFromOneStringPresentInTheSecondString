@@ -1,0 +1,26 @@
+import java.util.HashSet;
+
+public class removeCharFromOneStringPresentInTheSecondString{
+    
+
+
+    public static void remove(String str1,String str2){
+        HashSet<Character> set = new HashSet<>();
+        for(char ch: str2.toCharArray()){
+            set.add(ch);
+        }
+
+        StringBuilder res = new StringBuilder();
+        for(char ch:str1.toCharArray()){
+            if(!set.contains(ch)){
+                res.append(ch);
+            }
+        }
+        System.out.println(res.toString());
+    }
+    public static void main(String[] args) {
+        String s1 = "abcdef";
+        String s2 ="cefz";
+        remove(s1, s2);
+    }
+}
